@@ -1,6 +1,6 @@
 var settings = {
-  ip: "",
-  port: 
+  ip: "192.168.2.204",
+  port: 3443
 };
 
 
