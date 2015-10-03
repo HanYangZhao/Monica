@@ -1,4 +1,3 @@
-
 #define MICROPHONE_PIN A5
 #define AUDIO_BUFFER_MAX 8192
 
