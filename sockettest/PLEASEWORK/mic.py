@@ -52,7 +52,7 @@ class Mic:
         # TODO: Consolidate variables from the next three functions
         THRESHOLD_MULTIPLIER = 1.8
         RATE = 8000
-        CHUNK = 512
+        CHUNK = 1024
 
         # number of seconds to allow to establish threshold
         THRESHOLD_TIME = 1
@@ -75,15 +75,15 @@ class Mic:
         lastN = [i for i in range(20)]
 
         # calculate the long run average, and thereby the proper threshold
-        for i in range(0, RATE / CHUNK * THRESHOLD_TIME):
+        for i in range(0, RATE * 5  / CHUNK * THRESHOLD_TIME):
 
-            data = client_socket.recv(512)
+            data = client_socket.recv(1024)
             tempWave = wave.open("temp.wav", 'wb')
             tempWave.setparams(audioParams)
             tempWave.writeframes(data);
             tempWave.close()
             tempWave = wave.open("temp.wav", 'rb')
-            data = tempWave.readframes(512)
+            data = tempWave.readframes(1024)
             tempWave.close()
             frames.append(data)
 
@@ -108,13 +108,13 @@ class Mic:
 
         THRESHOLD_MULTIPLIER = 1.8
         RATE = 8000
-        CHUNK = 512
+        CHUNK = 1024
 
         # number of seconds to allow to establish threshold
         THRESHOLD_TIME = 1
 
         # number of seconds to listen before forcing restart
-        LISTEN_TIME = 10
+        LISTEN_TIME = 20
 
         # prepare recording stream
         #stream = self._audio.open(format=pyaudio.paInt16,
@@ -133,17 +133,18 @@ class Mic:
         lastN = [i for i in range(30)]
 
         # calculate the long run average, and thereby the proper threshold
-        for i in range(0, RATE / CHUNK * THRESHOLD_TIME):
+        for i in range(0, RATE * 2 / CHUNK * THRESHOLD_TIME):
 
-            data = client_socket.recv(512)
+            data = client_socket.recv(1024)
             tempWave = wave.open("temp1.wav", 'wb')
+            print "wave file"
             tempWave.setparams(audioParams)
             tempWave.writeframes(data);
             tempWave.close()
             tempWave = wave.open("temp1.wav", 'rb')
-            data = tempWave.readframes(512)
+            audio_data = tempWave.readframes(1024)
             tempWave.close()
-            frames.append(data)
+            frames.append(audio_data)
 
             # save this data point as a score
             lastN.pop(0)
@@ -160,15 +161,15 @@ class Mic:
         didDetect = False
 
         # start passively listening for disturbance above threshold
-        for i in range(0, RATE / CHUNK * LISTEN_TIME):
+        for i in range(0, RATE * 2 / CHUNK * LISTEN_TIME):
 
-            data = client_socket.recv(512)
+            data = client_socket.recv(1024)
             tempWave = wave.open("temp1.wav", 'wb')
             tempWave.setparams(audioParams)
             tempWave.writeframes(data);
             tempWave.close()
             tempWave = wave.open("temp1.wav", 'rb')
-            data = tempWave.readframes(512)
+            data = tempWave.readframes(1024)
             tempWave.close()
             frames.append(data)
 
@@ -191,14 +192,14 @@ class Mic:
 
         # otherwise, let's keep recording for few seconds and save the file
         DELAY_MULTIPLIER = 1
-        for i in range(0, RATE / CHUNK * DELAY_MULTIPLIER):
-            data = client_socket.recv(512)
+        for i in range(0, RATE * 2 / CHUNK * DELAY_MULTIPLIER):
+            data = client_socket.recv(1024)
             tempWave = wave.open("temp1.wav", 'wb')
             tempWave.setparams(audioParams)
             tempWave.writeframes(data);
             tempWave.close()
             tempWave = wave.open("temp1.wav", 'rb')
-            data = tempWave.readframes(512)
+            data = tempWave.readframes(1024)
             tempWave.close()
             frames.append(data)
 
@@ -242,7 +243,7 @@ class Mic:
         """
 
         RATE = 8000
-        CHUNK = 512
+        CHUNK = 1024
         LISTEN_TIME = 12
 
         # check if no threshold provided
@@ -267,15 +268,15 @@ class Mic:
         # generation
         lastN = [THRESHOLD * 1.2 for i in range(30)]
 
-        for i in range(0, RATE / CHUNK * LISTEN_TIME):
+        for i in range(0, RATE * 2 / CHUNK * LISTEN_TIME):
 
-            data = client_socket.recv(512)
+            data = client_socket.recv(1024)
             tempWave = wave.open("temp1.wav", 'wb')
             tempWave.setparams(audioParams)
             tempWave.writeframes(data);
             tempWave.close()
             tempWave = wave.open("temp1.wav", 'rb')
-            data = tempWave.readframes(512)
+            data = tempWave.readframes(1024)
             tempWave.close()
             frames.append(data)
 
