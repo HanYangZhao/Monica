@@ -6,7 +6,7 @@ var settings = {
 
 var fs = require("fs");
 
-var rstream = fs.createReadStream('monica.wav');
+var rstream = fs.createReadStream(' .wav');
 var Writable = require('stream').Writable
 var ws = Writable();
 
