@@ -10,10 +10,8 @@ client_socket.connect((ip, port))
 print ("connected to socket")
 
 wo = wave.open("monica2.wav",'wb')
-wo.setnchannels(1)
-wo.setsampwidth(2)
-wo.setframerate(8000)
-
+audioParams = (1,2,8000,0,'NONE','not compressed')
+wo.setparams(audioParams)
 
 
 
@@ -21,7 +19,7 @@ wo.setframerate(8000)
 while True:
   print ("Connection from ",  socket.gethostbyname(socket.gethostname()))
   while 1:
-      data = client_socket.recv(512)
+      data = client_socket.recv(1024)
       if data:
         wo.writeframes(data)
         print ("WROTE STUFF")
