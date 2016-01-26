@@ -244,7 +244,7 @@ class Mic:
 
         RATE = 8000
         CHUNK = 1024
-        LISTEN_TIME = 12
+        LISTEN_TIME = 10
 
         # check if no threshold provided
         if THRESHOLD is None:

@@ -12,7 +12,7 @@ WORDS = ["WHO", "WHAT", "HOW MUCH", "HOW MANY", "HOW OLD"]
 
 def handle(text, mic, profile):
     app_id = profile['keys']['WOLFRAMALPHA']
-    client = wolframalpha.Client(XGL5PE-V24W6XLAQ5)
+    client = wolframalpha.Client(app_id)
 
     query = client.query(text)
     if len(query.pods) > 0:
